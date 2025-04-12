@@ -1,117 +1,49 @@
 # micromatch [![NPM version](https://img.shields.io/npm/v/micromatch.svg?style=flat)](https://www.npmjs.com/package/micromatch) [![NPM monthly downloads](https://img.shields.io/npm/dm/micromatch.svg?style=flat)](https://npmjs.org/package/micromatch) [![NPM total downloads](https://img.shields.io/npm/dt/micromatch.svg?style=flat)](https://npmjs.org/package/micromatch)  [![Tests](https://github.com/micromatch/micromatch/actions/workflows/test.yml/badge.svg)](https://github.com/micromatch/micromatch/actions/workflows/test.yml)
 
-> Glob matching for javascript/node.js. A replacement and faster alternative to minimatch and multimatch.
+* 💡== Glob matching | javascript/node.js💡
+* alternatives
+  * to
+    * minimatch
+    * multimatch
+  * [how to migrate](#switching-to-micromatch)
 
-Please consider following this project's author, [Jon Schlinkert](https://github.com/jonschlinkert), and consider starring the project to show your :heart: and support.
-
-## Table of Contents
-
-<details>
-<summary><strong>Details</strong></summary>
-
-  * [Install](#install)
-- [Sponsors](#sponsors)
-  * [Gold Sponsors](#gold-sponsors)
-  * [Quickstart](#quickstart)
-  * [Why use micromatch?](#why-use-micromatch)
-    + [Matching features](#matching-features)
-  * [Switching to micromatch](#switching-to-micromatch)
-    + [From minimatch](#from-minimatch)
-    + [From multimatch](#from-multimatch)
-  * [API](#api)
-  * [Options](#options)
-  * [Options Examples](#options-examples)
-    + [options.basename](#optionsbasename)
-    + [options.bash](#optionsbash)
-    + [options.expandRange](#optionsexpandrange)
-    + [options.format](#optionsformat)
-    + [options.ignore](#optionsignore)
-    + [options.matchBase](#optionsmatchbase)
-    + [options.noextglob](#optionsnoextglob)
-    + [options.nonegate](#optionsnonegate)
-    + [options.noglobstar](#optionsnoglobstar)
-    + [options.nonull](#optionsnonull)
-    + [options.nullglob](#optionsnullglob)
-    + [options.onIgnore](#optionsonignore)
-    + [options.onMatch](#optionsonmatch)
-    + [options.onResult](#optionsonresult)
-    + [options.posixSlashes](#optionsposixslashes)
-    + [options.unescape](#optionsunescape)
-  * [Extended globbing](#extended-globbing)
-    + [Extglobs](#extglobs)
-    + [Braces](#braces)
-    + [Regex character classes](#regex-character-classes)
-    + [Regex groups](#regex-groups)
-    + [POSIX bracket expressions](#posix-bracket-expressions)
-  * [Notes](#notes)
-    + [Bash 4.3 parity](#bash-43-parity)
-    + [Backslashes](#backslashes)
-  * [Benchmarks](#benchmarks)
-    + [Running benchmarks](#running-benchmarks)
-    + [Latest results](#latest-results)
-  * [Contributing](#contributing)
-  * [About](#about)
-
-</details>
-
-## Install
-
-Install with [npm](https://www.npmjs.com/):
+## How to install?
 
 ```sh
 $ npm install --save micromatch
 ```
 
-<br />
-
-# Sponsors
-
-[Become a Sponsor](https://github.com/sponsors/jonschlinkert) to add your logo to this README, or any of [my other projects](https://github.com/jonschlinkert?tab=repositories&q=&type=&language=&sort=stargazers)
-
-<br />
-
 ## Quickstart
 
-```js
-const micromatch = require('micromatch');
-// micromatch(list, patterns[, options]);
-```
+* [here](examples/quickStart.js)
 
-The [main export](#micromatch) takes a list of strings and one or more glob patterns:
+## Features
 
-```js
-console.log(micromatch(['foo', 'bar', 'baz', 'qux'], ['f*', 'b*'])) //=> ['foo', 'bar', 'baz']
-console.log(micromatch(['foo', 'bar', 'baz', 'qux'], ['*', '!b*'])) //=> ['foo', 'qux']
-```
-
-Use [.isMatch()](#ismatch) to for boolean matching:
-
-```js
-console.log(micromatch.isMatch('foo', 'f*')) //=> true
-console.log(micromatch.isMatch('foo', ['b*', 'f*'])) //=> true
-```
-
-[Switching](#switching-to-micromatch) from minimatch and multimatch is easy!
-
-<br>
-
-## Why use micromatch?
-
-> micromatch is a [replacement](#switching-to-micromatch) for minimatch and multimatch
-
-* Supports all of the same matching features as [minimatch](https://github.com/isaacs/minimatch) and [multimatch](https://github.com/sindresorhus/multimatch)
-* More complete support for the Bash 4.3 specification than minimatch and multimatch. Micromatch passes _all of the spec tests_ from bash, including some that bash still fails.
-* **Fast & Performant** - Loads in about 5ms and performs [fast matches](#benchmarks).
-* **Glob matching** - Using wildcards (`*` and `?`), globstars (`**`) for nested directories
-* **[Advanced globbing](#extended-globbing)** - Supports [extglobs](#extglobs), [braces](#braces-1), and [POSIX brackets](#posix-bracket-expressions), and support for escaping special characters with `\` or quotes.
-* **Accurate** - Covers more scenarios [than minimatch](https://github.com/yarnpkg/yarn/pull/3339)
-* **Well tested** - More than 5,000 [test assertions](./test)
-* **Windows support** - More reliable windows support than minimatch and multimatch.
-* **[Safe](https://github.com/micromatch/braces#braces-is-safe)** - Micromatch is not subject to DoS with brace patterns like minimatch and multimatch.
+* vs [minimatch](https://github.com/isaacs/minimatch) & [multimatch](https://github.com/sindresorhus/multimatch)
+  * MORE support for Bash 4.3 specification 
+    * passes ALL bash's spec tests
+  * MORE scenarios covered
+    * [minimatch's problems -- with -- yarn](https://github.com/yarnpkg/yarn/pull/3339)
+  * MORE reliable windows support
+  * MORE [Safe](https://github.com/micromatch/braces#braces-is-safe)
+* **Fast & Performant** 
+  * loads in about 5ms
+  * [fast matches](#benchmarks)
+* **Glob matching**
+  * -- via --
+    * wildcards (`*` and `?`),
+    * globstars (`**`) -- for -- nested directories
+* **[Advanced globbing](#extended-globbing)** 
+  * [extglobs](#extglobs),
+  * [braces](#braces-1),
+  * [POSIX brackets](#posix-bracket-expressions)
+  * escaping special characters -- via -- `\` OR `'` 
+* **Well tested** 
+  * [5k test assertions](./test)
 
 ### Matching features
 
-* Support for multiple glob patterns (no need for wrappers like multimatch)
+* MULTIPLE glob patterns
 * Wildcards (`**`, `*.js`)
 * Negation (`'!a/*.js'`, `'*!(b).js'`)
 * [extglobs](#extglobs) (`+(x|y)`, `!(a|b)`)
@@ -119,12 +51,13 @@ console.log(micromatch.isMatch('foo', ['b*', 'f*'])) //=> true
 * [brace expansion](https://github.com/micromatch/braces) (`foo/{1..5}.md`, `bar/{a,b,c}.js`)
 * regex character classes (`foo-[1-5].js`)
 * regex logical "or" (`foo/(abc|xyz).js`)
-
-You can mix and match these features to create whatever patterns you need!
+* PREVIOUS features -- can be -- mixed
 
 ## Switching to micromatch
 
-_(There is one notable difference between micromatch and minimatch in regards to how backslashes are handled. See [the notes about backslashes](#backslashes) for more information.)_
+* TODO:
+_(There is one notable difference between micromatch and minimatch in regards to how backslashes are handled. 
+See [the notes about backslashes](#backslashes) for more information.)_
 
 ### From minimatch
 
@@ -150,26 +83,25 @@ console.log(micromatch(['foo', 'bar', 'baz'], ['f*', '*z'])); //=> ['foo', 'baz'
 
 ## API
 
-**Params**
-
-* `list` **{String|Array<string>}**: List of strings to match.
-* `patterns` **{String|Array<string>}**: One or more glob patterns to use for matching.
-* `options` **{Object}**: See available [options](#options)
-* `returns` **{Array}**: Returns an array of matches
-
-**Example**
-
-```js
-const mm = require('micromatch');
-// mm(list, patterns[, options]);
-
-console.log(mm(['a.js', 'a.txt'], ['*.js']));
-//=> [ 'a.js' ]
-```
+* `micromatch(list, patterns[, options]): []`
+  * `list`
+    * `String|Array<string>`
+    * == list of strings -- to -- match
+  * `patterns`
+    * `String|Array<string>`
+    * == glob patterns -- for -- matching
+  * `options`
+    * Object
+    * see [options](#options)
+  * returned `[]`
+    * == [] of matches
+  * _Example:_ [here](examples/api.js)
 
 ### [.matcher](index.js#L109)
 
-Returns a matcher function from the given glob `pattern` and `options`. The returned function takes a string to match as its only argument and returns true if the string is a match.
+* TODO:
+Returns a matcher function from the given glob `pattern` and `options`. 
+The returned function takes a string to match as its only argument and returns true if the string is a match.
 
 **Params**
 
@@ -837,6 +769,8 @@ In other words, since `\\` is reserved as an escape character in globs, on windo
 
 To solve this, you might be inspired to do something like `'foo\\*'.replace(/\\/g, '/')`, but this causes another, potentially much more serious, problem.
 
+* visit [GNU Bash documentation](https://www.gnu.org/software/bash/manual/)
+
 ## Benchmarks
 
 ### Running benchmarks
@@ -907,38 +841,13 @@ As of August 23, 2024 (longer bars are better):
   minimatch x 27,720 ops/sec ±1.84% (93 runs sampled))
 ```
 
-## Contributing
-
-All contributions are welcome! Please read [the contributing guide](.github/contributing.md) to get started.
-
-**Bug reports**
-
-Please create an issue if you encounter a bug or matching behavior that doesn't seem correct. If you find a matching-related issue, please:
-
-* [research existing issues first](../../issues) (open and closed)
-* visit the [GNU Bash documentation](https://www.gnu.org/software/bash/manual/) to see how Bash deals with the pattern
-* visit the [minimatch](https://github.com/isaacs/minimatch) documentation to cross-check expected behavior in node.js
-* if all else fails, since there is no real specification for globs we will probably need to discuss expected behavior and decide how to resolve it. which means any detail you can provide to help with this discussion would be greatly appreciated.
-
-**Platform issues**
-
-It's important to us that micromatch work consistently on all platforms. If you encounter any platform-specific matching or path related issues, please let us know (pull requests are also greatly appreciated).
-
 ## About
-
-<details>
-<summary><strong>Contributing</strong></summary>
-
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
-
-Please read the [contributing guide](.github/contributing.md) for advice on opening issues, pull requests, and coding standards.
-
-</details>
 
 <details>
 <summary><strong>Running Tests</strong></summary>
 
-Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:
+Running and reviewing unit tests is a great way to get familiarized with a library and its API. Y
+ou can install dependencies and run tests with the following command:
 
 ```sh
 $ npm install && npm test
@@ -1006,19 +915,3 @@ You might also be interested in these projects:
 | 1   | [Cslove](https://github.com/Cslove) |  
 | 1   | [amilajack](https://github.com/amilajack) |  
 
-### Author
-
-**Jon Schlinkert**
-
-* [GitHub Profile](https://github.com/jonschlinkert)
-* [Twitter Profile](https://twitter.com/jonschlinkert)
-* [LinkedIn Profile](https://linkedin.com/in/jonschlinkert)
-
-### License
-
-Copyright © 2024, [Jon Schlinkert](https://github.com/jonschlinkert).
-Released under the [MIT License](LICENSE).
-
-***
-
-_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.8.0, on August 23, 2024._
